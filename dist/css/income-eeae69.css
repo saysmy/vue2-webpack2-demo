@@ -1,0 +1,32 @@
+body {
+  background: #ddd;
+}
+#wrapper nav {
+  background: #ccc;
+  color: #000;
+}
+#wrapper p {
+  text-align: center;
+  background: #ff0000;
+  color: #fff;
+  line-height: 30px;
+  font-weight: bold;
+}
+#wrapper .img_bg {
+  background: url(../../dist/img/2-83099a.jpg) no-repeat top center;
+  width: 50px;
+  height: 50px;
+  display: block;
+  -moz-border-radius: 10px;
+       border-radius: 10px;
+  -ms-border-radius: 10px;
+}
+#wrapper button {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+/*# sourceMappingURL=income-eeae69.css.map*/

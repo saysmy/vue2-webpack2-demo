@@ -1,0 +1,36 @@
+{
+  "errno": 0,
+  "msg": "",
+  "data": {
+    "uInfo": {
+      "id": "4902373",
+      "nickname": "哈尼的大罩罩，😘",
+      "type": 3,
+      "signature": "",
+      "head_pic_1": "http://static.guojiang.tv/app/upload/2017_03_29/9f8b2d9e41513660e55d0bfa4a2cb4ca.jpg",
+      "level": "10",
+      "isBan": false,
+      "isVip": "0",
+      "medal": [],
+      "guardMedals": [
+        {
+          "mid": "1545587",
+          "type": "6",
+          "timeType": "0",
+          "startTime": "2017-03-24 22:53:08",
+          "endTime": "2017-04-23 22:53:08",
+          "status": "0"
+        },
+        {
+          "mid": "1545587",
+          "type": "2",
+          "timeType": "0",
+          "startTime": "2017-02-25 20:37:07",
+          "endTime": "2017-03-27 20:37:07",
+          "status": "-1"
+        }
+      ],
+      "guardTimetype": 0
+    }
+  }
+}
