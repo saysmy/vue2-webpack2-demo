@@ -10,7 +10,7 @@ new Vue({
 	el: '#app',
 	render: h => h(App)
 })
-
+console.log(112)
 new Vue({
 	el: '.article',
 	methods: {
@@ -18,7 +18,7 @@ new Vue({
 			console.log('coming')
 			axios.get( '/mock/income/index.json')
 			.then(function(res){
-				console.log(res)
+				console.log(res.data)
 			},function(errRes){
 				console.log(errRes)
 			})

@@ -29,7 +29,7 @@ module.exports = {
         /* 静态目录，可以直接从这里取文件 */
 		publicPath: '../../dist/',
         /* 文件名 */
-		filename: 'js/[name]-[chunkhash:6].js'
+		filename: 'js/[name].js?v=[chunkhash:8]'
 	},
 	module: {
 		rules: [
@@ -46,17 +46,19 @@ module.exports = {
 				enforce: 'pre',
 				loader: 'eslint-loader',
 				include: path.resolve(__dirname, './src/js/**/*.js'),
-				exclude: ['node_modules','./src/js/lib'],
+				exclude: ['./src/js/lib','./src/js/component'],
 				options: {
 					fix: true
 				}
 			},
 			{
 				test: /\.js$/,
-				loader: 'babel-loader'
+				loader: 'babel-loader',
+        exclude: ['node_modules','./src/js/lib','./src/js/component']
 			},
-			{   test: /\.css$/, 
-				  use: ['style-loader', 'css-loader', 'postcss-loader']
+			{   
+        test: /\.css$/, 
+				use: ['style-loader', 'css-loader', 'postcss-loader']
 			},
 			{
 				test: /\.less$/,
@@ -64,7 +66,7 @@ module.exports = {
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
-				loader: 'url-loader?limit=5120&name=img/[name]-[hash:6].[ext]'
+				loader: 'url-loader?limit=5120&name=img/[name].[ext]?v=[hash:8]'
 			},
 			{
 				test: /\.html$/,
@@ -84,7 +86,7 @@ module.exports = {
 			server: { baseDir: ['./'] }
 		}),
 
-		new ExtractTextPlugin('css/[name]-[contenthash:6].css'),
+		new ExtractTextPlugin('css/[name].css?v=[contenthash:6]'),
     
 		new webpack.LoaderOptionsPlugin({
 			options: {
@@ -111,9 +113,10 @@ module.exports = {
 var pages = getEntry('./html/src/**/*.ejs')
 for (var pathname in pages) {
 	var conf = {
-		filename: '../html/dist/' + pathname + '.html', // html文件输出路径
+		filename: path.resolve(__dirname, './html/dist/' + pathname + '.html'), // html文件输出路径
 		template: path.resolve(__dirname, './html/src/' + pathname + '/' + pathname + '.js'), // 模板路径
 		inject: true, 
+    cache: true, //只改动变动的文件
 		minify: {
 			removeComments: true,
 			collapseWhitespace: false
@@ -136,7 +139,7 @@ function getEntry(globPath) {
 
 	glob.sync(globPath).forEach(function (entry) {
     //排出layouts内的公共文件
-		if(entry.indexOf('layouts') == -1){
+		if(entry.indexOf('layouts') == -1 && entry.indexOf('lib') == -1){
 			basename = path.basename(entry, path.extname(entry))
 			entries[basename] = entry
 		}
@@ -152,12 +155,12 @@ function getEntry(globPath) {
 if (prod) {
 	console.log('production')
 
-	module.exports.devtool = 'source-map'
+	//module.exports.devtool = 'source-map'
 	module.exports.plugins = module.exports.plugins.concat([
 		new CleanWebpackPlugin(['dist']),
     //压缩css代码
 		new OptimizeCssAssetsPlugin({
-			assetNameRegExp: /\.css$/g,
+			assetNameRegExp: /\.css/g,
 			cssProcessor: require('cssnano'),
 			cssProcessorOptions: { discardComments: {removeAll: true } },
 			canPrint: true
